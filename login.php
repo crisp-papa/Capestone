@@ -72,9 +72,9 @@
                     <a class="btn" href="proposal.php"><b>PROPOSAL</b></a>
                     <a class="btn" href="prototype.php"><b>PROTOTYPE</b></a>
                     <a class="btn" href="techDoc.php"><b>TECH DOC</b></a>
-                    <a class="btn" href="#"><b>Link</b></a>	
-                    <a class="btn" href="#"><b>Link</b></a>
-                    <a class="btn" href="#"><b>Link</b></a>
+                    <a class="btn" href="erd.php"><b>ERD</b></a>	
+                    <a class="btn" href="screenShots.php"><b>SCREENS</b></a>
+                    <a class="btn" href="powerPoint.php"><b>PP</b></a>
                     <a class="btn" href="login.php"><b>GAME</b></a>
                 </div>  
             </div>  <!--  end nav  -->    
@@ -101,11 +101,20 @@
                     </form>
                 </div>
                 
+                <div id="announcements">
+                    <h3>ANNOUNCEMENTS</h3>
+                    <ul>
+                        <li>RECREATE ACCOUNTS!</li>
+                        <li>We have now entered into the next Beta session. New features have been added to the game and to accommodate these changes data needed to be added to the user accounts. In lieu of this all accounts have been removed. Please recreate your account to participate in the latest Beta patch.</li>
+                        <li>New features include equipping items, opening doors and treasure chests, picking up items, ascending and descending stairs. </li>
+                    </ul>
+                        
+                </div>
                 
             </div> <!-- end div container -->
             
             <div id="footer">  <!--  start footer  -->
-                    <p class="info">Terms of use | site map | contact</p>
+                    <p class="info"><a href="termsOfUse.php" style="color:white; text-decoration:none">Terms of Use</a> | <a href="siteMap.php" style="color:white; text-decoration:none">Site Map</a> | <a href="contact.php" style="color:white; text-decoration:none">Contact</a></p>
                     <p class="copyr">&copy; McCormick and Lougee, 2014.</p>
             </div>  <!--  end footer  -->
         

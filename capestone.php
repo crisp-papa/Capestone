@@ -12,13 +12,6 @@
         
         <?php
         
-        // variables to change in database information changes
-        $maxNumDungeons = 6;
-        $maxNumMonsters = 10; //10
-        $maxNumItems = 19; //19
-        $maxNumWeapon = 5; //5
-        $maxNumArmor = 6; //6
-        
         //make sure user is logged in or is trying to log out
         if( !isset($_SESSION["isLoggedin"]) && $_SESSION["isLoggedin"] != true ) // this will make sure the user is logged in
         {
@@ -39,103 +32,56 @@
         
         $heroData = $heroDBClass->getHeroData($userID); // get all data for user from hero table
         
-        
-        
-        
         // get monster data from database
         $monsterDBClass = new MonsterDB();
-        
-        $monsterData = array(); 
-        for ($i=0; $i <=$maxNumMonsters ; $i++) // this will get all monsters from the database and fill an array
-        {
-            if( $i!=0 )
-            {
-                $monsterData[$i] = $monsterDBClass->getMonsterData($i);
-            }
-            else
-            {
-                $monsterData[0] = "";
-            }
-            
-        }
-        
-        //print_r($monsterData);
-        
+
+        $monsterData = $monsterDBClass->getMonsterData();        
         
         // get item data from database
         $itemDBClass = new ItemDB();
-        /* ---- commented out geting all item data for now until we find that we need it again--------
-        $itemData = array(); 
-        for ($i=0; $i<=$maxNumItems; $i++) // get all the items from the database and fill a multi dimentional array
-        {
-            if( $i!=0 )
-            {
-                $itemData[$i] = $itemDBClass->getItemData($i);
-            }
-            else
-            {
-                $itemData[0] = "";
-            }
-        }
-        */ 
-        
-        $weaponItemData = ""; 
-        $weaponItemData = $itemDBClass->getWeaponItemData();  // this will get all the item data of just the weapons
-        
-        $armorItemData = "";
-        $armorItemData = $itemDBClass->getArmorItemData(); // this will get all the item data of just the armor
-        
-        //print_r($weaponItemData);
-        //print_r($armorItemData);
-        //print_r($itemData);
+
+        $itemData = $itemDBClass->getItemData();
 
         //get inventory data from database
         $inventoryDBClass = new InventoryDB();
         
         $inventoryData = $inventoryDBClass->getInventoryData($userID);
         
+        $inventoryItems = array();
         
-        // get dungeon data from database
-        $dungeonDBClass = new DungeonDB(); // instence of dungeon class
-        $dungeonData = array(); // array to hold 4 dungeon quadrents
-        for ($i=0; $i<4; $i++) 
+        for( $i = 0; !empty($inventoryData[$i]); $i++ )
         {
-            $randomDungeonID = rand(1, $maxNumDungeons); // get a random number from 1 to max number of dungeons
-            $dungeonData[$i] = $dungeonDBClass->getDungeonData($randomDungeonID); // get that data from database and fill it into one of the array indexes
+            
+            foreach($inventoryData[$i] as $key => $value)
+            {
+                if($key == "itemID")
+                {                    
+                    $inventoryItems[$i] = $itemDBClass->getInventoryItemData($value);     
+                }
+                
+                if($key == "equipped" && $value == "1")
+                {                    
+                    $inventoryItems[$i]["equipped"] = 1;
+                }
+                else
+                {
+                     $inventoryItems[$i]["equipped"] = 0;
+                }
+            }
         }
         
-        //print_r($dungeonData);
         
         
-        
-        
-        
-        //testing for save function
-        
-        //this is where i am testing the save ability of the game
-        if ( count($_POST) )
-        {
-            echo "post was populated on capestone.php <br />";
-            $_SESSION = $_POST;
-            print_r($_POST);
-        } 
-        print_r($_SESSION);
-        echo '<br />';
-
-        
-
-        
-        
-        
+        //print_r($_SESSION);
         ?>
         
         <div id="wrapper">
             <div id="header" style="background-image: url('images/banner.png')">
                 <h1>Capstone Project</h1>
                 
-                <a href ="capestone.php?logout=1" style="color:white; float:right;">Logout</a>
+                <a href ="capestone.php?logout=1" style="color:white; float:right; background-color:#212121">Logout</a>
                 
-                <span style="color:white; float:right;">Welcome <?php  // this will display the username at the top in the header
+                <span style="color:#ffd700; float:right; font-size:18px; background-color:#212121">Welcome <?php  // this will display the username at the top in the header
                                     echo $heroData['userName'];
                                     echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                                     ?>
@@ -148,9 +94,9 @@
                     <a class="btn" href="proposal.php"><b>PROPOSAL</b></a>
                     <a class="btn" href="prototype.php"><b>PROTOTYPE</b></a>
                     <a class="btn" href="techDoc.php"><b>TECH DOC</b></a>
-                    <a class="btn" href="#"><b>Link</b></a>	
-                    <a class="btn" href="#"><b>Link</b></a>
-                    <a class="btn" href="#"><b>Link</b></a>
+                    <a class="btn" href="erd.php"><b>ERD</b></a>	
+                    <a class="btn" href="screenShots.php"><b>SCREENS</b></a>
+                    <a class="btn" href="powerPoint.php"><b>PP</b></a>
                     <a class="btn" href="login.php"><b>GAME</b></a>
                 </div>  
             </div>  <!--  end nav  -->    
@@ -160,22 +106,46 @@
                 <canvas id="idCanvas" width="320" height ="480" class="simpleBorder"></canvas>
                 <div id="idConsole" class="console"></div>
                 
+                <!-- player info section -->
+                <div id="infoSection">
+                    <p id="description" class="playerInfo">description</p>
+                    <br />
+                    <p class="playerInfo">HP: </p><p id="currentHP" class="playerInfo">20</p><p class="playerInfo">/</p><p id="maxHP" class="playerInfo">20</p>
+                    <br />
+                    <p class="playerInfo">Armor Class: </p><p id="armorClass" class="playerInfo">20</p>
+                    <br />
+                    <p class="playerInfo">Attack Bonus: </p><p id="attackBonus" class="playerInfo">20</p>
+                    <br />
+                    <p class="playerInfo">Damage: </p><p id="damage" class="playerInfo">20</p>
+                    <br />
+                    <p class="playerInfo">Dungeon lvl: </p><p id="dungeonLvl" class="playerInfo">20</p>
+                </div>
+                
+                <div id="legend">
+                    <img src="images/vaultDoor.png">&nbsp <p class ="playerInfo">Door</p><br/>
+                    <img src="images/stairsUp.png">&nbsp <p class ="playerInfo">Ascending Stairs</p><br/>
+                    <img src="images/stairsDown.png">&nbsp <p class ="playerInfo">Descending Stairs</p><br/>
+                    <img src="images/closedChest.png">&nbsp <p class ="playerInfo">Treasure Chest</p><br/>
+                </div>
+                
+                <div id="controlSection">
+                    <img src="images/game controls.png" alt="game controls" height="240" width="635">
+                </div>
+                
             </div> <!-- end div container -->
             
-            <div id="footer">  <!--  start footer  -->
-                    <p class="info">Terms of use | site map | contact</p>
+            <div id="footer">
+                    <p class="info"><a href="termsOfUse.php" style="color:white; text-decoration:none">Terms of Use</a> | <a href="siteMap.php" style="color:white; text-decoration:none">Site Map</a> | <a href="contact.php" style="color:white; text-decoration:none">Contact</a></p>
                     <p class="copyr">&copy; McCormick and Lougee, 2014.</p>
-            </div>  <!--  end footer  -->
+            </div>    
         
         </div><!-- end div wrapper -->
         <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
         <script>
             var heroData = <?php echo json_encode($heroData);?>;
             var monsterData = <?php echo json_encode($monsterData);?>;
-            /*var itemData = <?php echo json_encode($itemData);?>;*/
-            var weaponData = <?php echo json_encode($weaponItemData);?>;
-            var armorData = <?php echo json_encode($armorItemData);?>;
-            var dungeonData = <?php echo json_encode($dungeonData);?>;
+            var itemData = <?php echo json_encode($itemData);?>;
+            var inventoryItems = <?php echo json_encode($inventoryItems);?>;
         </script>
         <script type="text/javascript" src="js/dungeons.js"></script>
         <script type="text/javascript" src="js/game.js"></script>

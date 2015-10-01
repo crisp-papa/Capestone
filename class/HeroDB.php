@@ -52,39 +52,25 @@ class HeroDB extends DB{
     
     public function defaultEntry() {
         
-        echo "Made it to default Entry<br/>";
-        
         $userID = $this->getUserID(); // get the user ID from the users table
         $username = $this->getUsername( $userID ); //gets the username based on user ID
         
         $dbh = $this->getDB();
         if ( null != $dbh ) {
-            
-            echo "Made it to default Entry before prepare <br/>";
-                       
+                      
             $stmt = $dbh->prepare("insert into Hero set userID = :userIDValue, userName = :usernameValue");
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_INT);
             $stmt->bindParam(':usernameValue', $username, PDO::PARAM_STR);
             
-            echo "Made it to default Entry after binding<br/>";
-            
             if ( $stmt->execute() ) // if everything was excecuted corectly
             {
-                
-                echo "Made it to default Entry after execute <br/>";
-                
                 return true;
             }
-            
-            echo "you are now after execute without the return true <br/>";
-            
         }
         return false; 
     }
     
-    public function saveHero($userID, $armorClass, $attackBonus, $currentHP, $damage, $description, $maxHP, $x, $y) {
-        
-        echo "made it into save hero function";
+    public function saveHero($userID, $armorClass, $attackBonus, $currentHP, $damage, $description, $maxHP, $x, $y, $dungeonLevel) {
         
         intval($userID);
         $db = $this->getDB();
@@ -98,7 +84,8 @@ class HeroDB extends DB{
                     . 'description = :descriptionValue, '
                     . 'maxHP = :maxHPValue, '
                     . 'x = :xValue, '
-                    . 'y = :yValue '
+                    . 'y = :yValue, '
+                    . 'dungeonLevel = :dungeonLevelValue '
                     . 'where userID = :userIDValue;');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_INT);
             $stmt->bindParam(':armorClassValue', $armorClass, PDO::PARAM_INT);
@@ -109,12 +96,10 @@ class HeroDB extends DB{
             $stmt->bindParam(':maxHPValue', $maxHP, PDO::PARAM_INT);
             $stmt->bindParam(':xValue', $x, PDO::PARAM_INT);
             $stmt->bindParam(':yValue', $y, PDO::PARAM_INT);
-            
-            echo "after binding in save function";
-            
+            $stmt->bindParam(':dungeonLevelValue', $dungeonLevel, PDO::PARAM_INT);
+
             if ( $stmt->execute() ) // if everything was excecuted corectly
             {
-                echo "after execute in save function";
                 return true;
             }
         }

@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Proposal</title>
+        <title>Entity-Relationship Diagram</title>
         <link rel="stylesheet" type="text/css" href="css/main.css" />
     </head>
     <body style="background-image: url('images/sprite_background.png')">
@@ -31,8 +31,8 @@
             </div>  <!--  end nav  -->    
            
             <div id="container">
-                <div id="pdf" style="opacity:'1'">
-                <object data="pdf/Erik Lougee & Steve McCormickAS Capstone Project Proposal.pdf" type="application/pdf" width="100%" height="100%"></object>
+                <div id="pdf">
+                <object data="pdf/database ERD.pdf" type="application/pdf" width="100%" height="100%"></object>
                 </div>
             </div> <!-- end div container -->
             
