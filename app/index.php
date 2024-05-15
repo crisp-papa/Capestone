@@ -1,3 +1,4 @@
+<?php xdebug_info();?>
 <?php include 'dependency.php'; ?>
 <!DOCTYPE html>
 
