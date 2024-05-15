@@ -15,6 +15,8 @@
 # php@sha256:99cede493dfd88720b610eb8077c8688d3cca50003d76d1d539b0efc8cca72b4.
 FROM php:8.3.1-apache
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 # Copy app files from the app directory.
 COPY ./app /var/www/html
 
