@@ -18,7 +18,7 @@ services:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: test
-      MYSQL_DATABASE: capestone
+      MYSQL_DATABASE: game
       MYSQL_USER: admin
       MYSQL_PASSWORD: ass_word
     volumes:
@@ -26,37 +26,3 @@ services:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount the SQL script
 volumes:
   db-data:
-
-# The commented out section below is an example of how to define a PostgreSQL
-# database that your application can use. `depends_on` tells Docker Compose to
-# start the database before your application. The `db-data` volume persists the
-# database data between container restarts. The `db-password` secret is used
-# to set the database password. You must create `db/password.txt` and add
-# a password of your choosing to it before running `docker-compose up`.
-#     depends_on:
-#       db:
-#         condition: service_healthy
-#   db:
-#     image: postgres
-#     restart: always
-#     user: postgres
-#     secrets:
-#       - db-password
-#     volumes:
-#       - db-data:/var/lib/postgresql/data
-#     environment:
-#       - POSTGRES_DB=example
-#       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-#     expose:
-#       - 5432
-#     healthcheck:
-#       test: [ "CMD", "pg_isready" ]
-#       interval: 10s
-#       timeout: 5s
-#       retries: 5
-# volumes:
-#   db-data:
-# secrets:
-#   db-password:
-#     file: db/password.txt
-

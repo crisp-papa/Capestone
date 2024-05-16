@@ -57,13 +57,15 @@ class ItemDB extends DB{
         if ( null != $db ) {
             $stmt = $db->prepare('select * from item where itemID = :itemIDValue'); //
             $stmt->bindParam(':itemIDValue', $itemID, PDO::PARAM_INT);
-            
-            if ( $stmt->execute() ) // if everything was excecuted corectly
-            {
-                $data = $stmt->fetch(PDO::FETCH_ASSOC);
-                return $data;
+            try {
+                if ( $stmt->execute() ) // if everything was excecuted corectly
+                {
+                    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                    return $data;
+                }
+            } catch (PDOException | Exception $e) { 
+                return false;
             }
         }  
     }
-    
 }

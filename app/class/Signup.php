@@ -90,9 +90,7 @@ class Signup extends DB {
         
         $db = $this->getDB();
         $password = sha1($_POST["password"]); // sha1 to encript the password
-        try
-        {
-            
+        try {
             if ( null != $db ) {
                 $stmt = $db->prepare('insert into users set name = :usernameValue, email = :emailValue, password = :passwordValue');
                 $stmt->bindParam(':usernameValue', $_POST["username"], PDO::PARAM_STR);
@@ -125,9 +123,8 @@ class Signup extends DB {
                     }
                 }
             }
-        
         }
-        catch ( Exception $ex )
+        catch ( PDOException | Exception $ex )
         {
             echo $ex->getMessage();
         }

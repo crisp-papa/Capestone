@@ -9,10 +9,14 @@ class InventoryDB extends DB{
             $stmt = $db->prepare('select * from inventory where userID = :userIDValue');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_STR);
             
-            if ( $stmt->execute() ) // if everything was excecuted corectly
-            {
-                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                return $data;
+            try { 
+                if ( $stmt->execute() ) // if everything was excecuted corectly
+                {
+                    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    return $data;
+                }
+            } catch (PDOException | Exception $e) { 
+                return false;
             }
         }  
     }

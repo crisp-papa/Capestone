@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS hero (
     currentHP INT(11),
     damage INT(11),
     description VARCHAR(255),
+    dungeonLevel INT(11),
     imagePath VARCHAR(255),
     maxHP INT(11),
     pass TINYINT(1),
@@ -55,3 +56,14 @@ CREATE TABLE IF NOT EXISTS monster (
     monsterName VARCHAR(50) NOT NULL,
     pass TINYINT(1)
 );
+
+/* Some default values for testing */
+insert into users values ('test', 'test@test.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 1);
+insert into hero values (1, 1, 20, 0, 20, 4, "Test hero", 1, "app/images/rogue.png", 20, 0, 0, 0);
+insert into monster values (1, 10, 1, 5, 2, "A small spider moving toward you. It seems to want to attack!", 1, "apps/image/smallArachnid.pn
+g", 5, "Arachnid", 0);
+insert into item values (1, "bites", 0, 1, 2, "Fangs for a monster", 0, "fangs", "Weapon");
+insert into item values (2, "slashes", 0, 1, 4, "A cool ass dagger", 0, "Dagger", "Weapon");
+
+GRANT ALL PRIVILEGES ON game.* TO 'admin'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

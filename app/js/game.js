@@ -308,6 +308,7 @@ function attack(assailant, defender)
 //Autoloader function
 function autoLoader()
 {
+    debugger;
     heroLoader();
     console.log(hero.dungeonLevel);
     if (hero.dungeonLevel == 6)
@@ -683,7 +684,7 @@ function fenceLoader()
 
 function heroLoader()
 {
-    hero = new being("images/rogue.png", 0, 0);
+    hero = new being("app/images/rogue.png", 0, 0);
     //Gives hero.armorClass and hero.damage
     //randomInventory(hero);
     
@@ -729,7 +730,6 @@ function heroLoader()
     hero.type = "hero";
     hero.x = parseInt(heroData.x);
     hero.y = parseInt(heroData.y);
-    
     checkCollision(hero);
     
     
@@ -741,7 +741,6 @@ function checkCollision(actor)
 {
     randomX = RNG(20);
     randomY = RNG(20);
-    
     while (coordinates[actor.x][actor.y] != 0 || actorCoordinates[actor.x][actor.y] != 0)
     {
         console.log("Finding new position...");

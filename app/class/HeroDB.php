@@ -8,11 +8,14 @@ class HeroDB extends DB{
         if ( null != $db ) {
             $stmt = $db->prepare('select * from hero where userID = :userIDValue');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_STR);
-            
-            if ( $stmt->execute() ) // if everything was excecuted corectly
-            {
-                $data = $stmt->fetch(PDO::FETCH_ASSOC);
-                return $data;
+            try { 
+                if ( $stmt->execute() ) // if everything was excecuted corectly
+                {
+                    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                    return $data;
+                }
+            } catch (PDOException | Exception $e) { 
+                return false;
             }
         }  
     }
