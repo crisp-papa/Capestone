@@ -18,7 +18,7 @@ FROM php:8.3.1-apache
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Copy app files from the app directory.
-COPY ./app /var/www/html
+COPY --chown=app:app ./app /var/www/html 
 
 # Your PHP application may require additional PHP extensions to be installed
 # manually. For detailed instructions for installing extensions can be found, see
