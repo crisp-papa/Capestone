@@ -6,7 +6,7 @@ class HeroDB extends DB{
         
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select * from Hero where userID = :userIDValue');
+            $stmt = $db->prepare('select * from hero where userID = :userIDValue');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_STR);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -21,7 +21,7 @@ class HeroDB extends DB{
     public function getUsername( $userID ){
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select userID, userName from Users where userID = :userIDValue');
+            $stmt = $db->prepare('select userID, name from users where userID = :userIDValue');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_STR);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -37,7 +37,7 @@ class HeroDB extends DB{
     public function getUserID(){
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select userID, email from Users where email = :emailValue');
+            $stmt = $db->prepare('select userID, email from users where email = :emailValue');
             $stmt->bindParam(':emailValue', $_POST["email"], PDO::PARAM_STR);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -58,7 +58,7 @@ class HeroDB extends DB{
         $dbh = $this->getDB();
         if ( null != $dbh ) {
                       
-            $stmt = $dbh->prepare("insert into Hero set userID = :userIDValue, userName = :usernameValue");
+            $stmt = $dbh->prepare("insert into hero set userID = :userIDValue, userName = :usernameValue");
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_INT);
             $stmt->bindParam(':usernameValue', $username, PDO::PARAM_STR);
             
@@ -75,7 +75,7 @@ class HeroDB extends DB{
         intval($userID);
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('update Hero '
+            $stmt = $db->prepare('update hero '
                     . 'set '
                     . 'armorClass = :armorClassValue, '
                     . 'attackBonus = :attackBonusValue, '
@@ -83,8 +83,8 @@ class HeroDB extends DB{
                     . 'damage = :damageValue, '
                     . 'description = :descriptionValue, '
                     . 'maxHP = :maxHPValue, '
-                    . 'x = :xValue, '
-                    . 'y = :yValue, '
+                    . 'x_position = :xValue, '
+                    . 'y_position = :yValue, '
                     . 'dungeonLevel = :dungeonLevelValue '
                     . 'where userID = :userIDValue;');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_INT);

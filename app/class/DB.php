@@ -12,7 +12,7 @@ class DB {
             echo $ex->getMessage(); // display error message
             $this->db = null; //this will close the database just in case
         }
-        return $this->db;        
+        return $this->db;
     }
     
     // this will be used to close the conection to the database

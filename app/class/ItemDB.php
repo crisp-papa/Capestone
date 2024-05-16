@@ -7,7 +7,7 @@ class ItemDB extends DB{
         //intval($itemID);
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select * from Item'); //where itemID = :itemIDValue
+            $stmt = $db->prepare('select * from item'); //where itemID = :itemIDValue
             //$stmt->bindParam(':itemIDValue', $itemID, PDO::PARAM_INT);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -23,7 +23,7 @@ class ItemDB extends DB{
         //intval($itemID);
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select * from Item where itemType = "Weapon"');
+            $stmt = $db->prepare('select * from item where itemType = "Weapon"');
             //$stmt->bindParam(':itemIDValue', $itemID, PDO::PARAM_INT);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -39,7 +39,7 @@ class ItemDB extends DB{
         //intval($itemID);
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select * from Item where itemType = "Armor"');
+            $stmt = $db->prepare('select * from item where itemType = "Armor"');
             //$stmt->bindParam(':itemIDValue', $itemID, PDO::PARAM_INT);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -55,7 +55,7 @@ class ItemDB extends DB{
         intval($itemID);
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select * from Item where itemID = :itemIDValue'); //
+            $stmt = $db->prepare('select * from item where itemID = :itemIDValue'); //
             $stmt->bindParam(':itemIDValue', $itemID, PDO::PARAM_INT);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly

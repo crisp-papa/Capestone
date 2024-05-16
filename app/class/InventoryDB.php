@@ -6,7 +6,7 @@ class InventoryDB extends DB{
     {
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select * from Inventory where userID = :userIDValue');
+            $stmt = $db->prepare('select * from inventory where userID = :userIDValue');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_STR);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -21,7 +21,7 @@ class InventoryDB extends DB{
     {
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('delete from Inventory where userID = :userIDValue');
+            $stmt = $db->prepare('delete from inventory where userID = :userIDValue');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_STR);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly
@@ -40,7 +40,7 @@ class InventoryDB extends DB{
         
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('insert into Inventory set userID = :userIDValue, itemID = :itemIDValue, equipped = :equippedValue;');
+            $stmt = $db->prepare('insert into inventory set userID = :userIDValue, itemID = :itemIDValue, equipped = :equippedValue;');
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_INT);
             $stmt->bindParam(':itemIDValue', $itemID, PDO::PARAM_INT);
             $stmt->bindParam(':equippedValue', $equipped, PDO::PARAM_INT);
@@ -62,7 +62,7 @@ class InventoryDB extends DB{
         $dbh = $this->getDB();
         if ( null != $dbh ) {
                     
-            $stmt = $dbh->prepare("insert into Inventory set userID = :userIDValue, itemID = 5, equipped = 1; insert into Inventory set userID = :userIDValue, itemID = 6, equipped = 1;");
+            $stmt = $dbh->prepare("insert into inventory set userID = :userIDValue, itemID = 5, equipped = 1; insert into inventory set userID = :userIDValue, itemID = 6, equipped = 1;");
             $stmt->bindParam(':userIDValue', $userID, PDO::PARAM_INT);
             
             if ( $stmt->execute() ) // if everything was excecuted corectly

@@ -15,13 +15,18 @@ class Signup extends DB {
     public function usernameIsTaken( $username ) {        
         $db = $this->getDB();
         if ( null != $db ) {
-            $stmt = $db->prepare('select userName from Users where userName = :usernameValue limit 1');
-            $stmt->bindParam(':usernameValue', $username, PDO::PARAM_STR);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);            
-            if ( is_array($result) && count($result) ) {
-                return true;
+            try {
+                $stmt = $db->prepare('select name from users where name = :usernameValue limit 1');
+                $stmt->bindParam(':usernameValue', $username, PDO::PARAM_STR);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);            
+                if ( is_array($result) && count($result) ) {
+                    return true;
+                }
+            } catch (PDOException | Exception $e) {
+                return false;
             }
+            
         }
         return false;        
     }
@@ -89,7 +94,7 @@ class Signup extends DB {
         {
             
             if ( null != $db ) {
-                $stmt = $db->prepare('insert into Users set userName = :usernameValue, email = :emailValue, password = :passwordValue');
+                $stmt = $db->prepare('insert into users set name = :usernameValue, email = :emailValue, password = :passwordValue');
                 $stmt->bindParam(':usernameValue', $_POST["username"], PDO::PARAM_STR);
                 $stmt->bindParam(':emailValue', $_POST["email"], PDO::PARAM_STR);
                 $stmt->bindParam(':passwordValue', $password, PDO::PARAM_STR); 
