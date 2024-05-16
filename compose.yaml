@@ -21,6 +21,20 @@ services:
         - action: sync
           path: ./app
           target: /var/www/html 
+    depends_on:
+      - db
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: capestone
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: ass_word
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql  # Mount the SQL script
+volumes:
+  db-data:
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to

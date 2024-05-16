@@ -3,8 +3,8 @@
 
 class Config {
     const DB_DNS = "mysql:host=localhost; port=3306; dbname=capestone;",
-          DB_USER = "root",
-          DB_PASSWORD = "";
+          DB_USER = "admin",
+          DB_PASSWORD = "ass_word";
     
     /*
      * const DB_DNS = "mysql:host=localhost; port=3306; dbname=capestone_db;",
